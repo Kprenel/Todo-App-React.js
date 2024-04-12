@@ -1,4 +1,15 @@
 .todo {
+    position: absolute;
+
+    top: 50%;
+    left: 50%;
+
+    transform: translate(-50%, -50%);
+
+    input:not(ul input), button {
+        border: 1px solid #ddd;
+    }
+
     display: flex;
     flex-direction: column;
     gap: 30px;

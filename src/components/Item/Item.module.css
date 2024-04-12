@@ -1,6 +1,22 @@
 .item {
     input {
         flex: 1;
+        padding: 10px 0;
+    }
+
+    & + li {
+        input {
+            border-top: 1px solid #ddd;
+        }
+    }
+
+    button {
+        width: 25px;
+        height: 25px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
     }
 
     display: flex;

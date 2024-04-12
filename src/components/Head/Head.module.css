@@ -1,6 +1,14 @@
 .head {
     input {
+        border: 1px solid #ddd;
+        padding: 5px 10px;
+        
         flex: 1;
+    }
+
+    input, button {
+        border: 1px solid #ddd;
+        padding: 5px 10px;
     }
 
     display: flex;
