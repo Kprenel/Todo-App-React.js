@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 import Head from './Head/Head';
 import Body from './Body/Body';
 import Item from './Item/Item';
 
 import styles from './Todo.module.css';
+import Bottom from './Bottom/Bottom';
 
 
 function Todo() {
@@ -17,19 +18,38 @@ function Todo() {
     // INPUT
     const [input_value, setInput_value] = useState('');
 
+    // PRE
+    const pre_ref = useRef(null);
+
+    useEffect(() => {
+        pre_ref.current.innerHTML = [...DATA].reduce((a, b) => {
+            return `${a + b} </br>`;
+        }, `[DATA LIST - Array] </br></br>`);
+
+        setInput_value('');
+    }, [DATA]);
 
     const data_ids = [...DATA.keys()];
-    
 
-    function save() {
-        if (input_value.trimEnd()) {
+
+    function save(value) {
+        if (value.trimEnd()) {
             setDATA(map => new Map([
                 ...map,
-                [Math.random(), input_value]
+                [Math.random(), value]
             ]));
-
-            setInput_value('');
         }
+    }
+
+    function edit({ id, input_value: value }) {
+        const new_map = DATA;
+
+        DATA.delete(id, value);
+
+        setDATA(map => new Map([
+            ...new_map,
+            [id, value],
+        ]));
     }
 
     function input_save({ target: input, keyCode }) {
@@ -56,22 +76,28 @@ function Todo() {
 
     return (
         <div className={styles.todo}>
-            <Head {...{ save, clear_all }}>
-                <input type="text" placeholder="Enter a text here..." 
+            <Head {...{ save, clear_all, input_value }}>
+                <input type="text" 
+                    placeholder="Enter a text here..." 
+
                     onChange={({ target }) => setInput_value(target.value)} 
                     onKeyUp={input_save}
+
                     value={input_value} 
                 />
             </Head>
             <Body>
-                {data_ids.map((id, index) => {
+                {data_ids.map(id => {
                     return (
-                        <Item key={id} {...{ id, remove }}>
-                            {DATA.get(id)}
-                        </Item>
+                        <Item key={id} {...{ id, remove, save, value: DATA.get(id), edit }} />
                     );
                 })}
             </Body>
+            <Bottom>
+                <pre ref={pre_ref}>
+                    
+                </pre>
+            </Bottom>
         </div>
     );
 }
