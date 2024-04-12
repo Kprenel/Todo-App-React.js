@@ -4,6 +4,8 @@
 
 Ainda está em desenvolvimento
 
+[Versão com JS puro](https://github.com/Kprenel/Todo-App)
+
 Features:
 - [ ] Ordenação
 - [ ] Estilos em links
