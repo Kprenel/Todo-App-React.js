@@ -44,12 +44,12 @@ function Todo() {
     function edit({ id, input_value: value }) {
         const new_map = DATA;
 
-        DATA.delete(id, value);
+        DATA.set(id, value);
 
         setDATA(map => new Map([
             ...new_map,
-            [id, value],
-        ]));
+            [],
+        ].filter(el => el.length >= 2)));
     }
 
     function input_save({ target: input, keyCode }) {

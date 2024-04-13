@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import ItemValue from './ItemValue';
 import { FaPen, FaSave, FaTrash } from 'react-icons/fa';
@@ -32,9 +32,9 @@ function Item({ id, edit, remove, value }) {
                 </button>
             }
 
-            <button onClick={() => remove(id)}>
+            {!edit_mode && <button onClick={() => remove(id)}>
                 <FaTrash />
-            </button>
+            </button>}
         </li>
     );
 }
